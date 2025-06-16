@@ -3,7 +3,7 @@
 #SBATCH --job-name=bcftools_window_call
 #SBATCH --output=logs/bcftools_window_%A_%a.out
 #SBATCH --error=logs/bcftools_window_%A_%a.err
-#SBATCH --array=1-21
+#SBATCH --array=1-14
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=450G
 #SBATCH --time=96:00:00
@@ -11,8 +11,8 @@
 
 # Set paths
 WORKING_DIR="/scratch.global/qiuxx221/ebi_mapping"
-BED_FILE="${WORKING_DIR}/bed_windows/barley_3x_windows.bed"
-BAM_LIST="${WORKING_DIR}/BAM_dedup/done/276_bam_list.txt"
+BED_FILE="/home/steffenb/shared/ris/barley_genome/bed_windows_2x/all_7_chr_2x.bed"
+BAM_LIST="/scratch.global/qiuxx221_share/dedup_bams/281_bam_list.txt"
 REF="/home/steffenb/shared/ris/barley_genome/Hordeum_vulgare.MorexV3_pseudomolecules_assembly.dna.toplevel.fa"
 OUT_DIR="${WORKING_DIR}/raw-VCF"
 mkdir -p "$OUT_DIR" logs
