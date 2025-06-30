@@ -18,3 +18,6 @@ conda activate ensembl_env_reinstall
     --fork 128 \
     --force_overwrite \
     --output_file repadapt_final_info_genotype_filtered.vcf.annotation.txt
+
+
+# the annotation has now been moved to /home/steffenb/shared/ris/barley_genome/annotation_vep to host permanently 
