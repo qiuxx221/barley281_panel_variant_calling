@@ -48,18 +48,25 @@ files=(
 input=${files[$SLURM_ARRAY_TASK_ID]}
 base=$(basename "$input" .snp.vcf.gz)
 
-# Step 1: Site-level filtering (DP between 10 and 7550.26, MQ ≥ 20, QUAL ≥ 30)
-#bcftools view --threads 32 -i 'INFO/DP>=10 && INFO/DP<=7550.26 && MQ>=20 && QUAL>=30' "$input" -Oz -o "$outdir/${base}.site_filtered.vcf.gz"
+# Step 1: split bcftools mpileup vcf into SNP only file
 
-# Step 2: Mask genotypes with low depth (FMT/DP < 10 → ./.)
-#bcftools filter --threads 32 -e 'FMT/DP<10' -S . "$outdir/${base}.site_filtered.vcf.gz" -Oz -o "$outdir/${base}.dp_fmt_filtered.vcf.gz"
+bcftools view --threads 24 -v snps "${BASENAME}.vcf.gz" -Oz -o "${BASENAME}.snp.vcf.gz"
+bcftools index --threads 24 -c "${BASENAME}.snp.vcf.gz"
 
-# Step 3: Remove sites with no remaining ALT alleles
-#bcftools view -c 1 "$outdir/${base}.dp_fmt_filtered.vcf.gz" -Oz -o "$outdir/${base}.noempty.vcf.gz"
+# Step 2: Site-level filtering (DP between 10 and 7550.26, MQ ≥ 20, QUAL ≥ 30)
+## max DP was calculated as 
+# maxdepth=$(bcftools query -f '%INFO/DP\n' "$VCF" | datamash mean 1 sstdev 1 | awk '{printf "%.2f", $1 + ($2 * 5)}') # vcf here is a merged vcf of all 14 separate vcf files.
+bcftools view --threads 32 -i 'INFO/DP>=10 && INFO/DP<=7550.26 && MQ>=20 && QUAL>=30' "$input" -Oz -o "$outdir/${base}.site_filtered.vcf.gz"
 
-# Step 4: Recalculate INFO tags (AC, AF, AN)
+# Step 3: Mask genotypes with low depth (FMT/DP < 10 → ./.)
+bcftools filter --threads 32 -e 'FMT/DP<10' -S . "$outdir/${base}.site_filtered.vcf.gz" -Oz -o "$outdir/${base}.dp_fmt_filtered.vcf.gz"
+
+# Step 4: Remove sites with no remaining ALT alleles
+bcftools view -c 1 "$outdir/${base}.dp_fmt_filtered.vcf.gz" -Oz -o "$outdir/${base}.noempty.vcf.gz"
+
+# Step 5: Recalculate INFO tags (AC, AF, AN)
 # /common/software/install/spack/linux-centos7-ivybridge/gcc-8.2.0/bcftools-1.16-5d4xg4yecvcdtx2i7iwsdzwcg3pcfm76/bin/bcftools
-#bcftools +fill-tags "$outdir/${base}.noempty.vcf.gz" --threads 32 -- -t AC,AF,AN -Oz -o "$outdir/${base}.tags.vcf.gz"
+bcftools +fill-tags "$outdir/${base}.noempty.vcf.gz" --threads 32 -- -t AC,AF,AN -Oz -o "$outdir/${base}.tags.vcf.gz"
 
 bcftools +fill-tags "$outdir/${base}.noempty.vcf.gz" -Oz -o "$outdir/${base}.tags.vcf.gz" -- -t AC,AF,AN
 bcftools index -c "$outdir/${base}.tags.vcf.gz"
