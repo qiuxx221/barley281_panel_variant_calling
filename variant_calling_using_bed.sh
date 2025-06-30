@@ -36,7 +36,7 @@ bcftools mpileup \
   -f "$REF" \
   --bam-list "$BAM_LIST" \
   -r "$REGION" \
-  -q 5 \
+  -q 20 \
   -I \
   -a FMT/AD,FMT/DP | \
 bcftools call \
