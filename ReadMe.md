@@ -1,4 +1,4 @@
-The Variant Calling for the 281 wild barley collection was performed using Repadapt workflow as the foundation. 
+The Variant Calling for the 281 wild barley collection was performed using Repadapt workflow as the foundation (https://github.com/JimWhiting91/RepAdapt/tree/main/snp_calling_pipeline). 
 
 # Reads trimming and Mapping
 
