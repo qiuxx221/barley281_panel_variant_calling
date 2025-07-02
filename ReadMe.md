@@ -23,7 +23,9 @@ Script generating_gatk_commands.sh was used to generate the variant calling comm
 
 One tricky part of the gatk calling is that there are issuing when the chromomsome positons are after 536,000,000 bp. So for the final variant calls, we first run standard gatk processing using commands at https://github.com/qiuxx221/barley281_panel/blob/main/accessory_file/gatk_commands.zip, then we run https://github.com/qiuxx221/barley281_panel/blob/main/accessory_file/csi_window_rerun_cmd.zip to generate those out of bound window variant call. 
 
-Finally, results were combined and cleaned to ensure all windows were coveraged properly. 
+Finally, results were combined and cleaned to ensure all windows were coveraged properly and merged together. 
+
+To ensure the high quality variant calls, standard gatk filtering paramater was used. 
 
 # Variant annotation
 
