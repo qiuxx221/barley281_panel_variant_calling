@@ -15,7 +15,7 @@ Due to the large barley chromosome size, each chromosome were split in half to s
 
 To ensure the high quality set of SNPs were obtained, Variant was further hard filtered using the miniumn read depth of 10, and quality of 30 (https://github.com/qiuxx221/barley281_panel/blob/main/snp_filtering.sh). After the quality filtering by site and by genotype, sites with no variants were removed. Allele frequency, allele count, allele number were recalculated using bcftools +fill-tags function. The final vcf file was created by concatenating the 14 vcfs together.
 
-## Gatk variant calling
+## GATK variant calling
 
 Limited by the speed of gatk haplotype caller, barley genome was divided into 2 million base pair window (https://github.com/qiuxx221/barley281_panel/blob/main/accessory_file/genome_2Mb_intervals.list) for the joint calling using bam files filtered by mapping quality of 20 . This result in a total of 2102 windows
 
