@@ -27,6 +27,20 @@ Finally, results were combined and cleaned to ensure all windows were coveraged 
 
 To ensure the high quality variant calls, standard gatk filtering paramater was used. 
 
+
+
+
+# Generating callable region variant calls
+
+Callable region bed file was obtained from Peter (https://github.com/qiuxx221/barley281_panel_variant_calling/blob/main/accessory_file/morex_v3_callable.bed.zip, Liu et al., 2025)
+
+To convert the bed file to chromosome coordinates (https://github.com/MorrellLAB/File_Conversions/blob/master/Barley_Parts_to_Pseudomolecules.py)
+python3 Barley_Parts_to_Pseudomolecules.py --bed morex_v3_callable.bed morex_v3 | sed 's|chr||g' > callable_bed_convert
+
+VCF files was intersected with the callable_bed_convert to obtain the subset of variants that are in the callable region
+(https://github.com/qiuxx221/barley281_panel_variant_calling/blob/main/intersect_callable.sh)
+
+
 # Variant annotation
 
 To annotate the SNPs, variant effector predictor was used using commands at (https://github.com/qiuxx221/barley281_panel/blob/main/vep_SNP_annotation.sh)
