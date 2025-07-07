@@ -25,9 +25,7 @@ One tricky part of the gatk calling is that there are issuing when the chromomso
 
 Finally, results were combined and cleaned to ensure all windows were coveraged properly and merged together. 
 
-To ensure the high quality variant calls, standard gatk filtering paramater was used. 
-
-
+To ensure the high quality variant calls, standard gatk filtering paramater was used (https://github.com/qiuxx221/barley281_panel_variant_calling/blob/main/gatk_output_split_filter.sh)
 
 
 # Generating callable region variant calls
