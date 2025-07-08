@@ -13,7 +13,7 @@ Due to the large barley chromosome size, each chromosome were split in half to s
 
 281 genotype variant call was done using the panel joint calling (https://github.com/qiuxx221/barley281_panel/blob/main/bcftools_mpileup_variant_calling.sh). 
 
-To ensure the high quality set of SNPs were obtained, Variant was further hard filtered using the miniumn read depth of 10, and quality of 30 (https://github.com/qiuxx221/barley281_panel/blob/main/snp_filtering.sh). After the quality filtering by site and by genotype, sites with no variants were removed. Allele frequency, allele count, allele number were recalculated using bcftools +fill-tags function. The final vcf file was created by concatenating the 14 vcfs together.
+To ensure the high quality set of SNPs were obtained, Variant was further hard filtered using the miniumn read depth of 10, and quality of 30 (https://github.com/qiuxx221/barley281_panel/blob/main/bcftools_mpileup_snp_filtering.sh). After the quality filtering by site and by genotype, sites with no variants were removed. Allele frequency, allele count, allele number were recalculated using bcftools +fill-tags function. The final vcf file was created by concatenating the 14 vcfs together.
 
 ## GATK variant calling
 
